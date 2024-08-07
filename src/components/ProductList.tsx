@@ -55,7 +55,7 @@ const ProductList: FC<ProductListProps> = ({ initialData }) => {
     }, [inView]);
 
     const renderLoadingSpinner = () => {
-        if (page >= 5 || isSoldOutButtonClick) {
+        if (page >= 18 || isSoldOutButtonClick) {
             return null;
         }
 
