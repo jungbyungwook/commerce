@@ -7,5 +7,6 @@
 ## Getting Started
 
 ```bash
-npm run start # NOTE: JSON Server와 함께 실행됩니다. front는 3000 port, server는 3001 port입니다.
+yarn install
+yarn start # NOTE: JSON Server와 함께 실행됩니다. front는 3000 port, server는 3001 port입니다.
 ```
