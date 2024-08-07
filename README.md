@@ -1,3 +1,7 @@
+![image](https://github.com/user-attachments/assets/1528d4fb-6f4e-4fed-abe8-5c15c53f0ac1)
+![image](https://github.com/user-attachments/assets/c25f5a8c-7fe1-47f2-87cc-c61fe73f279f)
+
+
 ## 작업 내용
 - 무한 스크롤
 - 필터링 (품절 상품)
@@ -10,3 +14,4 @@
 yarn install
 yarn start # NOTE: JSON Server와 함께 실행됩니다. front는 3000 port, server는 3001 port입니다.
 ```
+
