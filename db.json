@@ -1407,33 +1407,6 @@
             "isSoldOut": false
         },
         {
-            "idx": "44566616",
-            "itemId": "44566616",
-            "createdAt": null,
-            "price": 105400,
-            "originPrice": 134700,
-            "discountRate": 21,
-            "imageUrl": "https://static.fetchingapp.co.kr/itemImage_thumbnail/3510854fae899795919c055808eacea5.jpg",
-            "itemIsVerify": true,
-            "itemName": "Satisfy 메리노 튜브 양말",
-            "itemColor": "White",
-            "shopId": 225,
-            "shopName": "BALARDI",
-            "shopType": "해외부티크",
-            "isFetchingPay": true,
-            "brandName": "SATISFY",
-            "sizes": ["43/46"],
-            "isFreeDelivery": false,
-            "isDomesticDelivery": false,
-            "deliveryForm": "해외직배송",
-            "deliveryPeriod": "영업일 기준 평균 3~8일",
-            "interested": false,
-            "imageUrlList": [
-                "https://cdn.shopify.com/s/files/1/0299/8563/6396/files/55956_197591.jpg?v=1719366458"
-            ],
-            "isSoldOut": false
-        },
-        {
             "idx": "44306939",
             "itemId": "44306939",
             "createdAt": null,
