@@ -7,6 +7,7 @@ import { useInView } from "react-intersection-observer";
 import { getProducts, getAllProducts } from "@/apis/commerce";
 import { LoadingSpinner, FilterToggle, SearchBar } from "@/components";
 import { useRouter } from "next/navigation";
+import { getPrice, getDiscount } from "@/util/commerce";
 
 interface ProductListProps {
     initialData: Product[];
@@ -140,10 +141,21 @@ const ProductList: FC<ProductListProps> = ({ initialData }) => {
                                     priority
                                 />
                             </div>
-                            <p>{item.brandName}</p>
+                            <p className="font-semibold">{item.brandName}</p>
                             <p className="line-clamp-1">{item.itemName}</p>
-                            <p>{`${discount}%`}</p>
-                            <p>{`${item.price}`}</p>
+                            <p className="font-semibold text-orange-500	">{`${getDiscount(
+                                item.originPrice,
+                                item.price
+                            )}%`}</p>
+
+                            <div className="flex">
+                                <p className="mr-2 font-semibold">{`${getPrice(
+                                    item.price
+                                )}`}</p>
+                                <p className="line-through text-slate-400">{`${getPrice(
+                                    item.originPrice
+                                )}`}</p>
+                            </div>
                         </div>
                     );
                 })}

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { getAllProducts } from "@/apis/commerce";
 import { SearchBar } from "@/components";
 import { useRouter } from "next/navigation";
+import { getPrice, getDiscount } from "@/util/commerce";
 
 interface SearchProductListProps {
     searchedQuery: string;
@@ -82,7 +83,7 @@ const SearchProductList: FC<SearchProductListProps> = ({ searchedQuery }) => {
 
     return (
         <div className="pt-6 pb-6 ">
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center mb-14">
                 <SearchBar
                     productNames={createProductNames()}
                     query={query}
@@ -103,14 +104,27 @@ const SearchProductList: FC<SearchProductListProps> = ({ searchedQuery }) => {
                                 <Image
                                     src={item.imageUrl}
                                     // src={item.imageUrlList[1]}
+                                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                     fill={true}
                                     alt={item.itemName}
+                                    priority
                                 />
                             </div>
-                            <p>{item.brandName}</p>
+                            <p className="font-semibold">{item.brandName}</p>
                             <p className="line-clamp-1">{item.itemName}</p>
-                            <p>{`${discount}%`}</p>
-                            <p>{`${item.price}`}</p>
+                            <p className="font-semibold text-orange-500	">{`${getDiscount(
+                                item.originPrice,
+                                item.price
+                            )}%`}</p>
+
+                            <div className="flex">
+                                <p className="mr-2 font-semibold">{`${getPrice(
+                                    item.price
+                                )}`}</p>
+                                <p className="line-through text-slate-400">{`${getPrice(
+                                    item.originPrice
+                                )}`}</p>
+                            </div>
                         </div>
                     );
                 })}
