@@ -6,7 +6,7 @@ import { calculateDiscountedPrice } from "@/util/commerce";
 import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { getProducts, getAllProducts } from "@/apis/commerce";
-import { LoadingSpinner, FilterToggle } from "@/components";
+import { LoadingSpinner, FilterToggle, SearchBar } from "@/components";
 
 interface ProductListProps {
     initialData: Product[];
@@ -15,12 +15,23 @@ interface ProductListProps {
 const ProductList: FC<ProductListProps> = ({ initialData }) => {
     const { ref, inView } = useInView();
 
-    const [data, setData] = useState<Product[]>(initialData);
+    const [data, setData] = useState<Product[] | null>(initialData);
     const [allData, setAllData] = useState<Product[] | null>(null);
     const [page, setPage] = useState<number>(2);
     const [isSoldOutButtonClick, setIsSoldOutButtonClick] = useState(false);
+    const [query, setQuery] = useState<string>("");
+    const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>(
+        []
+    );
+    const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+    const [isSearch, setIsSearch] = useState<boolean>(false);
+    const [searchedData, setSearchedData] = useState<Product[] | null>(null);
 
     const discount = 10;
+
+    if (!data) {
+        return null;
+    }
 
     const getAllData = async () => {
         const res = await getAllProducts();
@@ -43,13 +54,17 @@ const ProductList: FC<ProductListProps> = ({ initialData }) => {
     }, []);
 
     useEffect(() => {
+        createProductNames();
+    }, [allData]);
+
+    useEffect(() => {
         if (inView) {
             loadMoreData();
         }
     }, [inView]);
 
     const renderLoadingSpinner = () => {
-        if (page >= 5 || isSoldOutButtonClick) {
+        if (page >= 5 || isSoldOutButtonClick || searchedData) {
             return null;
         }
 
@@ -61,11 +76,14 @@ const ProductList: FC<ProductListProps> = ({ initialData }) => {
     };
 
     const onClickSoldOut = () => {
+        setIsSearch(false);
         setIsSoldOutButtonClick(!isSoldOutButtonClick);
     };
 
     const getVisibleData = () => {
-        if (isSoldOutButtonClick && allData) {
+        if (searchedData) {
+            return searchedData;
+        } else if (isSoldOutButtonClick && allData) {
             const newData = allData.filter((item) => item.isSoldOut === true);
             return newData;
         } else {
@@ -74,12 +92,59 @@ const ProductList: FC<ProductListProps> = ({ initialData }) => {
         }
     };
 
+    const createProductNames = () => {
+        if (!allData) {
+            return null;
+        }
+        const productNames = allData.map((item) => item.itemName);
+        return productNames;
+    };
+
+    const pressEnter = (e) => {
+        if (!allData) {
+            return null;
+        }
+        if (e.key === "Enter") {
+            setShowSuggestions(false);
+            if (query === "") {
+                setSearchedData(null);
+            } else {
+                const newData = allData.filter((item) =>
+                    filteredSuggestions.includes(item.itemName)
+                );
+                setSearchedData(newData);
+            }
+        }
+    };
+
+    const renderFilterToggle = () => {
+        if (searchedData) {
+            return null;
+        } else {
+            return (
+                <FilterToggle
+                    isSoldOutButtonClick={isSoldOutButtonClick}
+                    onClickSoldOut={onClickSoldOut}
+                />
+            );
+        }
+    };
+
     return (
         <div className="pt-6 pb-6">
-            <FilterToggle
-                isSoldOutButtonClick={isSoldOutButtonClick}
-                onClickSoldOut={onClickSoldOut}
+            <SearchBar
+                productNames={createProductNames()}
+                query={query}
+                setQuery={setQuery}
+                filteredSuggestions={filteredSuggestions}
+                setFilteredSuggestions={setFilteredSuggestions}
+                showSuggestions={showSuggestions}
+                setShowSuggestions={setShowSuggestions}
+                pressEnter={pressEnter}
+                setIsSearch={setIsSearch}
             />
+
+            {renderFilterToggle()}
             <div className="max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 pl-4 pr-4">
                 {getVisibleData().map((item: Product) => {
                     return (
