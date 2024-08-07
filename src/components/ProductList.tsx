@@ -87,17 +87,15 @@ const ProductList: FC<ProductListProps> = ({ initialData }) => {
                             <div className="w-full h-48 sm:h-56 md:h-64 lg:h-72 relative mb-4">
                                 <Image
                                     src={item.imageUrl}
+                                    // src={item.imageUrlList[1]}
                                     fill={true}
                                     alt={item.itemName}
                                 />
                             </div>
+                            <p>{item.brandName}</p>
                             <p className="line-clamp-1">{item.itemName}</p>
-
                             <p>{`${discount}%`}</p>
-                            <p>{`${calculateDiscountedPrice(
-                                item.price,
-                                discount
-                            ).toFixed(2)}$`}</p>
+                            <p>{`${item.price}`}</p>
                         </div>
                     );
                 })}
