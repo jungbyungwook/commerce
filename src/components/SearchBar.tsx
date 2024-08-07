@@ -9,8 +9,7 @@ interface SearchBarProps {
     setQuery: (query: string) => void;
     setFilteredSuggestions: (suggestions: string[]) => void;
     setShowSuggestions: (showSuggestions: boolean) => void;
-    pressEnter: () => void;
-    setIsSearch: (isSearch: boolean) => void;
+    pressEnter: (event: any) => void;
 }
 
 const SearchBar: FC<SearchBarProps> = ({
@@ -22,12 +21,10 @@ const SearchBar: FC<SearchBarProps> = ({
     setFilteredSuggestions,
     setShowSuggestions,
     pressEnter,
-    setIsSearch,
 }) => {
     const suggestions = productNames;
 
     const handleChange = (event: any) => {
-        setIsSearch(false);
         if (!suggestions) {
             return null;
         }
