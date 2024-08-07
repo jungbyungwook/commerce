@@ -1,5 +1,5 @@
 import { getProducts } from "@/apis/commerce";
-import ProductList from "@/components/ProductList";
+import { ProductList } from "@/components";
 
 export default async function Home() {
     const initialData = await getProducts(1);
