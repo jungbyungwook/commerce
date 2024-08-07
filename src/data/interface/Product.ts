@@ -21,4 +21,5 @@ export interface Product {
     deliveryPeriod: string;
     interested: boolean;
     imageUrlList: string[];
+    isSoldOut: boolean;
 }

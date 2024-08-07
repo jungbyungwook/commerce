@@ -12,3 +12,13 @@ export const getProducts = async (page: number, perPage: number = 12) => {
         return err;
     }
 };
+
+export const getAllProducts = async () => {
+    try {
+        const res = await api.get("/products");
+
+        return res.data;
+    } catch (err) {
+        return err;
+    }
+};
