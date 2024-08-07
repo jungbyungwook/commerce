@@ -92,8 +92,12 @@ const ProductList: FC<ProductListProps> = ({ initialData }) => {
             return null;
         }
         if (e.key === "Enter") {
-            const encodedQuery = encodeURIComponent(query.trim());
-            router.push(`/search/${encodedQuery}`);
+            if (query === "") {
+                router.push("/");
+            } else {
+                const encodedQuery = encodeURIComponent(query.trim());
+                router.push(`/search/${encodedQuery}`);
+            }
         }
     };
 
@@ -107,17 +111,19 @@ const ProductList: FC<ProductListProps> = ({ initialData }) => {
     };
 
     return (
-        <div className="pt-6 pb-6">
-            <SearchBar
-                productNames={createProductNames()}
-                query={query}
-                setQuery={setQuery}
-                filteredSuggestions={filteredSuggestions}
-                setFilteredSuggestions={setFilteredSuggestions}
-                showSuggestions={showSuggestions}
-                setShowSuggestions={setShowSuggestions}
-                pressEnter={pressEnter}
-            />
+        <div className="pt-6 pb-6 ">
+            <div className="flex items-center justify-center">
+                <SearchBar
+                    productNames={createProductNames()}
+                    query={query}
+                    setQuery={setQuery}
+                    filteredSuggestions={filteredSuggestions}
+                    setFilteredSuggestions={setFilteredSuggestions}
+                    showSuggestions={showSuggestions}
+                    setShowSuggestions={setShowSuggestions}
+                    pressEnter={pressEnter}
+                />
+            </div>
 
             {renderFilterToggle()}
             <div className="max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 pl-4 pr-4">

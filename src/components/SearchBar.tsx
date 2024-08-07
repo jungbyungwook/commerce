@@ -1,5 +1,6 @@
 "use client";
 import { FC } from "react";
+import { useRouter } from "next/navigation";
 
 interface SearchBarProps {
     productNames: string[] | null;
@@ -22,6 +23,8 @@ const SearchBar: FC<SearchBarProps> = ({
     setShowSuggestions,
     pressEnter,
 }) => {
+    const router = useRouter();
+
     const suggestions = productNames;
 
     const handleChange = (event: any) => {
@@ -45,13 +48,12 @@ const SearchBar: FC<SearchBarProps> = ({
     };
 
     const handleSuggestionClick = (suggestion: string) => {
-        setQuery(suggestion);
-        setFilteredSuggestions([]);
-        setShowSuggestions(false);
+        const encodedQuery = encodeURIComponent(suggestion.trim());
+        router.push(`/search/${encodedQuery}`);
     };
 
     return (
-        <div className="relative w-full max-w-md mx-auto">
+        <div className="w-96">
             <input
                 type="text"
                 value={query}
@@ -61,7 +63,7 @@ const SearchBar: FC<SearchBarProps> = ({
                 onKeyDown={pressEnter}
             />
             {showSuggestions && (
-                <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-b-lg shadow-md">
+                <div className="absolute z-10 w-96 bg-white border border-gray-300 rounded-b-lg shadow-md">
                     {filteredSuggestions.length > 0 ? (
                         <ul>
                             {filteredSuggestions.map((suggestion, index) => (
