@@ -111,7 +111,13 @@ const SearchProductList: FC<SearchProductListProps> = ({ searchedQuery }) => {
                                 />
                             </div>
                             <p className="font-semibold">{item.brandName}</p>
-                            <p className="line-clamp-1">{item.itemName}</p>
+                            <p
+                                className={`line-clamp-1 ${
+                                    item.isSoldOut && "line-through"
+                                }`}
+                            >
+                                {item.itemName}
+                            </p>
                             <p className="font-semibold text-orange-500	">{`${getDiscount(
                                 item.originPrice,
                                 item.price
