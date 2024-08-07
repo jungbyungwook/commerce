@@ -1,6 +1,5 @@
-![image](https://github.com/user-attachments/assets/1528d4fb-6f4e-4fed-abe8-5c15c53f0ac1)
-![image](https://github.com/user-attachments/assets/c25f5a8c-7fe1-47f2-87cc-c61fe73f279f)
-
+![image](https://github.com/user-attachments/assets/7666b76c-db05-4b15-9239-aa278498c3cf)
+![image](https://github.com/user-attachments/assets/54d032e2-9499-4170-a5f2-e0bcf917a76b)
 
 ## 작업 내용
 - 무한 스크롤
